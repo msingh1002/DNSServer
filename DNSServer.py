@@ -30,11 +30,11 @@ def generate_aes_key(password, salt):
     key = base64.urlsafe_b64encode(key)
     return key
 
-# Lookup details on fernet in the cryptography.io documentation  ##########  
+# Lookup details on fernet in the cryptography.io documentation
 def encrypt_with_aes(input_string, password, salt):
     key = generate_aes_key(password, salt)
     f = Fernet(key)
-    encrypted_data = f.encrypt(input.encode('utf-8')) #call the Fernet encrypt method
+    encrypted_data = f.encrypt(input_string.encode('utf-8')) #call the Fernet encrypt method
     return encrypted_data    
 
 def decrypt_with_aes(encrypted_data, password, salt):
@@ -126,7 +126,7 @@ def run_dns_server():
 
             # Send the response back to the client using the `server_socket.sendto` method and put the response to_wire(), return to the addr you received from
             print("Responding to request:", qname)
-            server_socket.sendto(response.to_wire()) ##
+            server_socket.sendto(response.to_wire(), addr) 
         except KeyboardInterrupt:
             print('\nExiting...')
             server_socket.close()
